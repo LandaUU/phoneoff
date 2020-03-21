@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PhoneOFF</string>
+    <string name="Product">Товары</string>
+    <string name="Account">Аккаунт</string>
+    <string name="Home">Дом</string>
+    <string name="Cart">Корзина</string>
+</resources>

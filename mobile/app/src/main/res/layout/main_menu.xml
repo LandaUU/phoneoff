@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <item
+        android:id="@+id/bottomNavigationProductId"
+        android:icon="@drawable/list"
+        android:title="@string/Product" />
+
+    <item
+        android:id="@+id/bottomNavigationAccountId"
+        android:icon="@drawable/person"
+        android:title="@string/Account" />
+
+    <item
+        android:id="@+id/bottomNavigationHomeId"
+        android:icon="@drawable/home"
+        android:title="@string/Home" />
+
+    <item
+        android:id="@+id/bottomNavigationCartId"
+        android:icon="@drawable/cart"
+        android:title="@string/Cart" />
+</menu>
