@@ -6,20 +6,24 @@
     <item
         android:id="@+id/bottomNavigationProductId"
         android:icon="@drawable/list"
-        android:title="@string/Product" />
+        android:title="@string/Product"
+        android:onClick="ProductClick"/>
 
     <item
         android:id="@+id/bottomNavigationAccountId"
         android:icon="@drawable/person"
-        android:title="@string/Account" />
+        android:title="@string/Account"
+        android:onClick="AccountClick"/>
 
     <item
         android:id="@+id/bottomNavigationHomeId"
         android:icon="@drawable/home"
-        android:title="@string/Home" />
+        android:title="@string/Home"
+        android:onClick="HomeClick"/>
 
     <item
         android:id="@+id/bottomNavigationCartId"
         android:icon="@drawable/cart"
-        android:title="@string/Cart" />
+        android:title="@string/Cart"
+        android:onClick="BucketClick"/>
 </menu>

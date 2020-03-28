@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/infoTextView"
+        android:layout_width="281dp"
+        android:layout_height="98dp"
+        android:text="@string/InfoAccount"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.067" />
+
+    <Button
+        android:id="@+id/LoginButton"
+        android:layout_width="128dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/Login"
+        app:layout_constraintBottom_toTopOf="@+id/RegistrationButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/infoTextView" />
+
+    <Button
+        android:id="@+id/RegistrationButton"
+        android:layout_width="129dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="64dp"
+        android:text="@string/Registration"
+        app:layout_constraintBottom_toTopOf="@+id/OrdersSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/infoTextView"
+        app:layout_constraintVertical_bias="0.854" />
+
+    <Spinner
+        android:id="@+id/OrdersSpinner"
+        android:layout_width="209dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="286dp"
+        app:layout_constraintBottom_toTopOf="@+id/TownsSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/infoTextView"
+        app:layout_constraintVertical_bias="0.155" />
+
+    <Spinner
+        android:id="@+id/TownsSpinner"
+        android:layout_width="210dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="412dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/infoTextView" />
+</androidx.constraintlayout.widget.ConstraintLayout>

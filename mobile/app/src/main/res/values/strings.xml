@@ -4,4 +4,11 @@
     <string name="Account">Аккаунт</string>
     <string name="Home">Дом</string>
     <string name="Cart">Корзина</string>
+    <string name="emblem">Интернет-магазин PHONEOFF</string>
+    <string name="vkontakte">vkontakte</string>
+    <string name="telegram">telegram</string>
+    <string name="InfoAccount">Войдите или зарегистрируйтесь, чтобы начать покупки</string>
+    <string name="Login">Вход</string>
+    <string name="Registration">Регистрация</string>
+    <string name="OrderButton">Оформить заказ</string>
 </resources>
