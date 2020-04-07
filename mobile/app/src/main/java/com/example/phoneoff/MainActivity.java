@@ -27,12 +27,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void HomeClick(MenuItem item) {
+        item.setChecked(true);
         Log.i(TAG, "Нажали на home, создаем фрагмент HomeFragment");
         HomeFragment fragment = new HomeFragment();
         ChangeFragment(R.id.frameLayout, fragment);
     }
 
     public void ProductClick(MenuItem item) {
+        item.setChecked(true);
         Log.i(TAG, "Нажали на Product, создаем фрагмент ProductFragment");
         ProductFragment fragment = new ProductFragment();
         ChangeFragment(R.id.frameLayout, fragment);
@@ -47,12 +49,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void AccountClick(MenuItem item) {
+        item.setChecked(true);
         Log.i(TAG, "Нажали на Account, создаем фрагмент AccountFragment");
         AccountFragment fragment = new AccountFragment();
         ChangeFragment(R.id.frameLayout, fragment);
     }
 
     public void BucketClick(MenuItem item) {
+        item.setChecked(true);
         Log.i(TAG, "Нажали на Account, создаем фрагмент BucketFragment");
         BucketFragment fragment = new BucketFragment();
         ChangeFragment(R.id.frameLayout, fragment);
