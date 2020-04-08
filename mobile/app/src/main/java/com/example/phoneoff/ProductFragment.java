@@ -12,26 +12,32 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class ProductFragment extends Fragment {
     RecyclerView recyclerView;
     ProductAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_product, container, false);
         recyclerView = view.findViewById(R.id.ProductRecycleView);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        adapter = new ProductAdapter(new String[]{"1","2","3"});
+
+        adapter = new ProductAdapter();
         recyclerView.setAdapter(adapter);
         return view;
     }
 
     public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
-        public String[] mArray;
-        public ProductAdapter(String[] array){
-            mArray = array;
+        public ArrayList<Product> productArrayList = new ArrayList<Product>();
+
+        public ProductAdapter(ArrayList<Product> array) {
+            productArrayList = array;
+        }
+
+        public ProductAdapter() {
         }
 
         @NonNull
@@ -46,11 +52,12 @@ public class ProductFragment extends Fragment {
         public void onBindViewHolder(@NonNull ProductAdapter.ProductViewHolder holder, int position) {
             holder.textView.setText("Nokia 5520");
             holder.imageView.setImageResource(R.drawable.nokia);
+            /*TODO: Сделать отображение данных на ProductRecyclerView */
         }
 
         @Override
         public int getItemCount() {
-            return 0;
+            return productArrayList.size();
         }
 
         public class ProductViewHolder extends RecyclerView.ViewHolder{

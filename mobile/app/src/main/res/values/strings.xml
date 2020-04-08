@@ -11,4 +11,5 @@
     <string name="Login">Вход</string>
     <string name="Registration">Регистрация</string>
     <string name="OrderButton">Оформить заказ</string>
+    <string name="PhoneImageDescription">Изображение телефона</string>
 </resources>
