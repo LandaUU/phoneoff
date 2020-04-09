@@ -1,18 +1,15 @@
 package com.example.phoneoff;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
-
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-
-import java.util.logging.Logger;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,5 +57,16 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "Нажали на Account, создаем фрагмент BucketFragment");
         BucketFragment fragment = new BucketFragment();
         ChangeFragment(R.id.frameLayout, fragment);
+    }
+
+    public void VKontakteClick(View view) {
+        /*TODO: Сделать переадресацию на чью-нибудь страницу в вк*/
+
+        Toast.makeText(view.getContext(), "Переадресация ВКонтакте", Toast.LENGTH_LONG).show();
+    }
+
+    public void TelegramClick(View view) {
+        /*TODO: Наверно можно создать канал в телеге для переадресации*/
+        Toast.makeText(view.getContext(), "Переадресация Telegram", Toast.LENGTH_LONG).show();
     }
 }
