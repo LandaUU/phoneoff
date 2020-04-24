@@ -9,9 +9,9 @@ public class Product {
     public int RAM;
     public int ROM;
     public double Diagonal;
-    public Byte[] image;
+    public String Image;
 
-    public Product(String name, double cost, String description, String color, String manufacturer, int RAM, int ROM, double diagonal, Byte[] image) {
+    public Product(String name, double cost, String description, String color, String manufacturer, int RAM, int ROM, double diagonal, String image) {
         Name = name;
         Cost = cost;
         Description = description;
@@ -20,6 +20,6 @@ public class Product {
         this.RAM = RAM;
         this.ROM = ROM;
         Diagonal = diagonal;
-        this.image = image;
+        this.Image = image;
     }
 }
