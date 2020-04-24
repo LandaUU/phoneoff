@@ -19,8 +19,8 @@
 
     <Button
         android:id="@+id/LoginButton"
-        android:layout_width="128dp"
-        android:layout_height="42dp"
+        android:layout_width="176dp"
+        android:layout_height="75dp"
         android:layout_marginTop="10dp"
         android:text="@string/Login"
         app:layout_constraintBottom_toTopOf="@+id/RegistrationButton"
@@ -30,35 +30,12 @@
 
     <Button
         android:id="@+id/RegistrationButton"
-        android:layout_width="129dp"
-        android:layout_height="41dp"
-        android:layout_marginBottom="64dp"
+        android:layout_width="176dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="268dp"
         android:text="@string/Registration"
-        app:layout_constraintBottom_toTopOf="@+id/OrdersSpinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/infoTextView"
-        app:layout_constraintVertical_bias="0.854" />
-
-    <Spinner
-        android:id="@+id/OrdersSpinner"
-        android:layout_width="209dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="286dp"
-        android:entries="@array/towns"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/infoTextView" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="Выберите город"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/OrdersSpinner"
-        app:layout_constraintEnd_toEndOf="@+id/OrdersSpinner"
-        app:layout_constraintStart_toStartOf="@+id/OrdersSpinner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,11 +13,14 @@ import com.example.phoneoff.ui.login.LoginActivity;
 
 public class AccountFragment extends Fragment {
     Button loginButton;
+    Button RegButton;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_account, container, false);
         loginButton = view.findViewById(R.id.LoginButton);
+        RegButton = view.findViewById(R.id.RegistrationButton);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
