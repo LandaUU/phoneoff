@@ -11,15 +11,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-
+    private ArrayList<Product> products = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "Создание MainActivity");
         setContentView(R.layout.activity_main);
+        DBManager.GetProducts(products);
     }
 
 
@@ -33,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     public void ProductClick(MenuItem item) {
         item.setChecked(true);
         Log.i(TAG, "Нажали на Product, создаем фрагмент ProductFragment");
-        ProductFragment fragment = new ProductFragment();
+        ProductFragment fragment = new ProductFragment(products);
         ChangeFragment(R.id.frameLayout, fragment);
     }
 
