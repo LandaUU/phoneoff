@@ -1,5 +1,6 @@
 package com.example.phoneoff;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -9,12 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -74,7 +76,12 @@ public class ProductFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     TextView index = v.findViewById(R.id.Index);
-                    Toast.makeText(v.getContext(), index.getText(), Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(v.getContext(), ProductActivity.class);
+                    Gson gs = new Gson();
+                    String json = gs.toJson(arrayList.get(Integer.parseInt(index.getText().toString())));
+                    intent.putExtra("product", json);
+                    startActivity(intent);
+                    //Toast.makeText(v.getContext(), index.getText(), Toast.LENGTH_LONG).show();
                 }
             });
             ProductViewHolder productViewHolder = new ProductViewHolder(view);
