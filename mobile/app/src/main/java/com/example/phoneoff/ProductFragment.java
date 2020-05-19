@@ -73,7 +73,8 @@ public class ProductFragment extends Fragment {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "Телефооооооон", Toast.LENGTH_LONG).show();
+                    TextView index = v.findViewById(R.id.Index);
+                    Toast.makeText(v.getContext(), index.getText(), Toast.LENGTH_LONG).show();
                 }
             });
             ProductViewHolder productViewHolder = new ProductViewHolder(view);
@@ -83,9 +84,11 @@ public class ProductFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull ProductAdapter.ProductViewHolder holder, int position) {
             holder.textView.setText(productArrayList.get(position).Name);
+            String ind = String.valueOf(position);
             Bitmap imagePhone;
             try {
                 imagePhone = StringToBitMap(productArrayList.get(position).Image);
+                holder.index.setText(ind);
                 holder.imageView.setImageBitmap(imagePhone);
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -100,12 +103,13 @@ public class ProductFragment extends Fragment {
 
         public class ProductViewHolder extends RecyclerView.ViewHolder{
             public TextView textView;
+            public TextView index;
             public ImageView imageView;
-
             public ProductViewHolder(View v){
                 super(v);
                 imageView = v.findViewById(R.id.PhoneImage);
                 textView = v.findViewById(R.id.PhoneName);
+                index = v.findViewById(R.id.Index);
             }
         }
     }

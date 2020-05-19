@@ -22,13 +22,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
-import retrofit2.http.POST;
+import retrofit2.http.GET;
 
 public class DBManager {
 
 
     private interface API {
-        @POST("/Phone/GetPhones")
+        @GET("/Phone/GetPhones")
         Call<String> getProducts();
     }
 
@@ -78,7 +78,7 @@ public class DBManager {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(ScalarsConverterFactory.create())
-                .baseUrl("https://192.168.1.13:5001")
+                .baseUrl("https://phoneoff.westeurope.cloudapp.azure.com")
                 .client(getUnsafeOkHttpClient().build())
                 .build();
 
