@@ -10,24 +10,27 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.Gson;
-
 public class ProductActivity extends AppCompatActivity {
 
     Product product;
-    TextView textView;
+    TextView textView2;
+    TextView textView3;
     ImageView imageView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
         Intent intent = getIntent();
-        Gson gs = new Gson();
-        product = gs.fromJson(intent.getStringExtra("product"), Product.class);
-        textView = findViewById(R.id.textView2);
+        //Gson gs = new Gson();
+        //product = gs.fromJson(intent.getStringExtra("product"), Product.class);
+        product = (Product) intent.getSerializableExtra("product");
+        textView2 = findViewById(R.id.textView2);
+        textView3 = findViewById(R.id.textView3);
         imageView = findViewById(R.id.PhoneImageA);
-        textView.setText(product.Name);
+        textView2.setText(product.Name);
+        textView3.setText(product.Description);
         imageView.setImageBitmap(StringToBitMap(product.Image));
     }
 

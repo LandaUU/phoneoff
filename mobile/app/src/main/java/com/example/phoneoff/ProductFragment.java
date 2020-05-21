@@ -16,8 +16,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
 
 public class ProductFragment extends Fragment {
@@ -77,9 +75,10 @@ public class ProductFragment extends Fragment {
                 public void onClick(View v) {
                     TextView index = v.findViewById(R.id.Index);
                     Intent intent = new Intent(v.getContext(), ProductActivity.class);
-                    Gson gs = new Gson();
-                    String json = gs.toJson(arrayList.get(Integer.parseInt(index.getText().toString())));
-                    intent.putExtra("product", json);
+                    //Gson gs = new Gson();
+                    //String json = gs.toJson(arrayList.get(Integer.parseInt(index.getText().toString())));
+                    intent.putExtra("product", arrayList.get(Integer.parseInt(index.getText().toString())));
+                    //intent.putExtra("product", json);
                     startActivity(intent);
                     //Toast.makeText(v.getContext(), index.getText(), Toast.LENGTH_LONG).show();
                 }
