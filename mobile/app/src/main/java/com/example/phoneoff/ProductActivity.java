@@ -6,17 +6,19 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.tabs.TabLayout;
 
 public class ProductActivity extends AppCompatActivity {
 
     Product product;
-    TextView textView2;
-    TextView textView3;
     ImageView imageView;
-
+    TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +28,30 @@ public class ProductActivity extends AppCompatActivity {
         //Gson gs = new Gson();
         //product = gs.fromJson(intent.getStringExtra("product"), Product.class);
         product = (Product) intent.getSerializableExtra("product");
-        textView2 = findViewById(R.id.textView2);
-        textView3 = findViewById(R.id.textView3);
         imageView = findViewById(R.id.PhoneImageA);
-        textView2.setText(product.Name);
-        textView3.setText(product.Description);
+        tabLayout = findViewById(R.id.tabLayout);
         imageView.setImageBitmap(StringToBitMap(product.Image));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getText().toString().contains("Описание")) {
+                    Description_Click();
+                } else {
+                    Characteristic_Click();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
 
@@ -44,5 +64,24 @@ public class ProductActivity extends AppCompatActivity {
             e.getMessage();
             return null;
         }
+    }
+
+    public void Description_Click() {
+        DescriptionFragment fragment = new DescriptionFragment(product);
+        ChangeFragment(R.id.PhoneLayout, fragment);
+    }
+
+    public void Characteristic_Click() {
+        CharacteristicFragment fragment = new CharacteristicFragment(product);
+        ChangeFragment(R.id.PhoneLayout, fragment);
+    }
+
+
+    private void ChangeFragment(int id, Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(id, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }
