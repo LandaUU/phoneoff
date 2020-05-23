@@ -1,5 +1,9 @@
 package com.example.phoneoff;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
 import java.io.Serializable;
 
 public class Product implements Serializable {
@@ -23,5 +27,21 @@ public class Product implements Serializable {
         this.ROM = ROM;
         Diagonal = diagonal;
         this.Image = image;
+    }
+
+    public Bitmap getImage() {
+        return StringToBitMap(Image);
+    }
+
+
+    private Bitmap StringToBitMap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
     }
 }

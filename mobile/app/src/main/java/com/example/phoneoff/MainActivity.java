@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private ArrayList<Product> products = new ArrayList<>();
+    private ArrayList<Product> orderproducts = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     public void BucketClick(MenuItem item) {
         item.setChecked(true);
         Log.i(TAG, "Нажали на Account, создаем фрагмент BucketFragment");
-        BucketFragment fragment = new BucketFragment();
+        BucketFragment fragment = new BucketFragment(orderproducts);
         ChangeFragment(R.id.frameLayout, fragment);
     }
 

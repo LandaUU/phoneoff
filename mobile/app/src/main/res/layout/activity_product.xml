@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProductActivity">
+    tools:context=".ProductActivity"
+    tools:menu="@menu/product_menu">
 
     <ImageView
         android:id="@+id/PhoneImageA"
-        android:layout_width="412dp"
-        android:layout_height="267dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/nokia" />
@@ -21,20 +22,19 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PhoneImageA"
+        app:layout_constraintTop_toBottomOf="@+id/AddOrderButton"
         app:tabIndicatorColor="#B79EEF">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="Description_Click"
             android:text="Описание" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="Characteristic_Click"
             android:text="Характеристики" />
     </com.google.android.material.tabs.TabLayout>
 
@@ -53,5 +53,16 @@
 
         </FrameLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/AddOrderButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:background="#00B8D4"
+        android:text="Добавить в корзину"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/PhoneImageA" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

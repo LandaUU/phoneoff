@@ -18,13 +18,18 @@ import java.util.ArrayList;
 public class BucketFragment extends Fragment {
     RecyclerView recyclerView;
     BucketAdapter adapter;
+    private ArrayList<Product> products = new ArrayList<>();
+
+    public BucketFragment(ArrayList<Product> list) {
+        products = list;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bucket, container, false);
         recyclerView = view.findViewById(R.id.OrdersRecycleView);
-        adapter = new BucketAdapter();
+        adapter = new BucketAdapter(products);
         recyclerView.setAdapter(adapter);
         return view;
     }
@@ -50,8 +55,7 @@ public class BucketFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull BucketViewHolder holder, int position) {
             holder.textView.setText(arrayList.get(position).Name);
-            /* TODO: в дальнейшем когда будут изображения в бд доделать отображение*/
-
+            holder.imageView.setImageBitmap(arrayList.get(position).getImage());
         }
 
         @Override

@@ -2,9 +2,7 @@ package com.example.phoneoff;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,16 +21,6 @@ public class ProductFragment extends Fragment {
     ProductAdapter adapter;
     ArrayList<Product> arrayList = new ArrayList<>();
 
-    private Bitmap StringToBitMap(String encodedString) {
-        try {
-            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            return bitmap;
-        } catch (Exception e) {
-            e.getMessage();
-            return null;
-        }
-    }
 
     public ProductFragment(ArrayList<Product> products) {
         arrayList = products;
@@ -93,7 +81,7 @@ public class ProductFragment extends Fragment {
             String ind = String.valueOf(position);
             Bitmap imagePhone;
             try {
-                imagePhone = StringToBitMap(productArrayList.get(position).Image);
+                imagePhone = productArrayList.get(position).getImage();
                 holder.index.setText(ind);
                 holder.imageView.setImageBitmap(imagePhone);
             } catch (Exception ex) {

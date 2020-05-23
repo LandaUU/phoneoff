@@ -1,11 +1,11 @@
 package com.example.phoneoff;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Base64;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -19,6 +19,7 @@ public class ProductActivity extends AppCompatActivity {
     Product product;
     ImageView imageView;
     TabLayout tabLayout;
+    Button OrderButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class ProductActivity extends AppCompatActivity {
         product = (Product) intent.getSerializableExtra("product");
         imageView = findViewById(R.id.PhoneImageA);
         tabLayout = findViewById(R.id.tabLayout);
-        imageView.setImageBitmap(StringToBitMap(product.Image));
+        imageView.setImageBitmap(product.getImage());
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -52,18 +53,15 @@ public class ProductActivity extends AppCompatActivity {
 
             }
         });
-    }
 
+        OrderButton = findViewById(R.id.AddOrderButton);
+        OrderButton.setOnClickListener(v -> {
+            Toast.makeText(getApplicationContext(), "Добавлено в корзину", Toast.LENGTH_LONG).show();
+            OrderButton.setBackgroundColor(Color.GREEN);
+            OrderButton.setText("Добавлено");
+            OrderButton.setClickable(false);
 
-    private Bitmap StringToBitMap(String encodedString) {
-        try {
-            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            return bitmap;
-        } catch (Exception e) {
-            e.getMessage();
-            return null;
-        }
+        });
     }
 
     public void Description_Click() {
@@ -84,4 +82,5 @@ public class ProductActivity extends AppCompatActivity {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
 }

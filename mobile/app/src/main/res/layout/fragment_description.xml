@@ -9,7 +9,8 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20sp">
 
             <TextView
                 android:id="@+id/NameDescriptionTextView"
@@ -21,23 +22,26 @@
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="332dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="20sp"
             android:layout_marginTop="20sp">
 
             <TextView
                 android:id="@+id/DescriptionTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="20sp"
                 android:text="Телефон обладает свойствами блаблаблаблаблаблаблаблабла блаблаблабл блаблабла "
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="12sp" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20sp">
+            android:layout_marginTop="20sp"
+            android:layout_marginLeft="20sp">
 
             <TextView
                 android:id="@+id/OsnCharTextView"
@@ -51,7 +55,8 @@
         <TableRow
             android:layout_width="188dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="20sp">
+            android:layout_marginTop="20sp"
+            android:layout_marginLeft="20sp">
 
             <TextView
                 android:id="@+id/textView7"
@@ -65,7 +70,8 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20sp">
+            android:layout_marginTop="20sp"
+            android:layout_marginLeft="20sp">
 
             <TextView
                 android:id="@+id/textView11"
@@ -78,7 +84,8 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20sp">
+            android:layout_marginTop="20sp"
+            android:layout_marginLeft="20sp">
 
             <TextView
                 android:id="@+id/textView12"
@@ -91,7 +98,8 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20sp">
+            android:layout_marginTop="20sp"
+            android:layout_marginLeft="20sp">
 
             <TextView
                 android:id="@+id/textView13"
@@ -110,6 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
+                android:layout_marginLeft="20sp"
                 android:text="Диагональ:"
                 android:textColor="#000000" />
         </TableRow>
