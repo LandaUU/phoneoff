@@ -2,11 +2,12 @@ package com.example.phoneoff;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Base64;
 
-import java.io.Serializable;
 
-public class Product implements Serializable {
+public class Product implements Parcelable {
     public String Name;
     public double Cost;
     public String Description;
@@ -29,6 +30,30 @@ public class Product implements Serializable {
         this.Image = image;
     }
 
+    protected Product(Parcel in) {
+        Name = in.readString();
+        Cost = in.readDouble();
+        Description = in.readString();
+        Color = in.readString();
+        Manufacturer = in.readString();
+        RAM = in.readInt();
+        ROM = in.readInt();
+        Diagonal = in.readDouble();
+        Image = in.readString();
+    }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
+
     public Bitmap getImage() {
         return StringToBitMap(Image);
     }
@@ -43,5 +68,23 @@ public class Product implements Serializable {
             e.getMessage();
             return null;
         }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(Name);
+        dest.writeDouble(Cost);
+        dest.writeString(Description);
+        dest.writeString(Color);
+        dest.writeString(Manufacturer);
+        dest.writeInt(ROM);
+        dest.writeInt(RAM);
+        dest.writeDouble(Diagonal);
+        dest.writeString(Image);
     }
 }

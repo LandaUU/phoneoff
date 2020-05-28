@@ -3,6 +3,7 @@ package com.example.phoneoff;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,12 +64,12 @@ public class ProductFragment extends Fragment {
                 public void onClick(View v) {
                     TextView index = v.findViewById(R.id.Index);
                     Intent intent = new Intent(v.getContext(), ProductActivity.class);
-                    //Gson gs = new Gson();
-                    //String json = gs.toJson(arrayList.get(Integer.parseInt(index.getText().toString())));
-                    intent.putExtra("product", arrayList.get(Integer.parseInt(index.getText().toString())));
-                    //intent.putExtra("product", json);
-                    startActivity(intent);
-                    //Toast.makeText(v.getContext(), index.getText(), Toast.LENGTH_LONG).show();
+                    try {
+                        intent.putExtra("product", arrayList.get(Integer.parseInt(index.getText().toString())));
+                        startActivityForResult(intent, 1);
+                    } catch (Exception ex) {
+                        Log.e("ProductFragment", ex.getMessage());
+                    }
                 }
             });
             ProductViewHolder productViewHolder = new ProductViewHolder(view);

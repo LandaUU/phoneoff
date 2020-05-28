@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class BucketFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bucket, container, false);
         recyclerView = view.findViewById(R.id.OrdersRecycleView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         adapter = new BucketAdapter(products);
         recyclerView.setAdapter(adapter);
         return view;

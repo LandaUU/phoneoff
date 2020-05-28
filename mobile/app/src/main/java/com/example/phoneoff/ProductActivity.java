@@ -20,6 +20,7 @@ public class ProductActivity extends AppCompatActivity {
     ImageView imageView;
     TabLayout tabLayout;
     Button OrderButton;
+    boolean isOrdered = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class ProductActivity extends AppCompatActivity {
         Intent intent = getIntent();
         //Gson gs = new Gson();
         //product = gs.fromJson(intent.getStringExtra("product"), Product.class);
-        product = (Product) intent.getSerializableExtra("product");
+        product = (Product) intent.getParcelableExtra("product");
         imageView = findViewById(R.id.PhoneImageA);
         tabLayout = findViewById(R.id.tabLayout);
         imageView.setImageBitmap(product.getImage());
@@ -60,7 +61,7 @@ public class ProductActivity extends AppCompatActivity {
             OrderButton.setBackgroundColor(Color.GREEN);
             OrderButton.setText("Добавлено");
             OrderButton.setClickable(false);
-
+            isOrdered = true;
         });
     }
 
@@ -83,4 +84,17 @@ public class ProductActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent resultIntent = new Intent();
+        int resultcode;
+        resultIntent.putExtra("OrderedProduct", product);
+        if (isOrdered)
+            resultcode = 1;
+        else
+            resultcode = 2;
+        setResult(resultcode, resultIntent);
+        finish();
+    }
 }
