@@ -14,13 +14,19 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 public class ProductActivity extends AppCompatActivity {
 
+    int productId;
     Product product;
     ImageView imageView;
     TabLayout tabLayout;
     Button OrderButton;
     boolean isOrdered = false;
+    AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +35,26 @@ public class ProductActivity extends AppCompatActivity {
         Intent intent = getIntent();
         //Gson gs = new Gson();
         //product = gs.fromJson(intent.getStringExtra("product"), Product.class);
-        product = (Product) intent.getParcelableExtra("product");
+        productId = (int) intent.getIntExtra("productId", 0);
+
+        db = MainActivity.db;
+
+        ExecutorService service = Executors.newSingleThreadExecutor();
+
+        service.execute(() -> product = db.productDao().getProduct(productId));
+
+        service.shutdown();
+
+        try {
+            service.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         imageView = findViewById(R.id.PhoneImageA);
         tabLayout = findViewById(R.id.tabLayout);
         imageView.setImageBitmap(product.getImage());
+        Description_Click();
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -89,12 +111,17 @@ public class ProductActivity extends AppCompatActivity {
         super.onBackPressed();
         Intent resultIntent = new Intent();
         int resultcode;
-        resultIntent.putExtra("OrderedProduct", product);
+        resultIntent.putExtra("OrderedProduct", product.Id);
         if (isOrdered)
             resultcode = 1;
         else
             resultcode = 2;
         setResult(resultcode, resultIntent);
+        //finish();
+        killActivity();
+    }
+
+    private void killActivity() {
         finish();
     }
 }

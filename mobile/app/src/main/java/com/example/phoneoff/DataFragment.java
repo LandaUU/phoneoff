@@ -17,7 +17,7 @@ public class DataFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // retain this fragment
-        setRetainInstance(true);
+        //setRetainInstance(true);
     }
 
     public void setData(ArrayList<Product> data, ArrayList<Product> data1) {

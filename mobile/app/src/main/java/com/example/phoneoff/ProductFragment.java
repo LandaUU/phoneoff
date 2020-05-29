@@ -65,7 +65,7 @@ public class ProductFragment extends Fragment {
                     TextView index = v.findViewById(R.id.Index);
                     Intent intent = new Intent(v.getContext(), ProductActivity.class);
                     try {
-                        intent.putExtra("product", arrayList.get(Integer.parseInt(index.getText().toString())));
+                        intent.putExtra("productId", arrayList.get(Integer.parseInt(index.getText().toString())).Id);
                         startActivityForResult(intent, 1);
                     } catch (Exception ex) {
                         Log.e("ProductFragment", ex.getMessage());

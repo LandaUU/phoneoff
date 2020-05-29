@@ -19,9 +19,9 @@ import java.util.ArrayList;
 public class BucketFragment extends Fragment {
     RecyclerView recyclerView;
     BucketAdapter adapter;
-    private ArrayList<Product> products = new ArrayList<>();
+    private ArrayList<ProductOrder> products = new ArrayList<>();
 
-    public BucketFragment(ArrayList<Product> list) {
+    public BucketFragment(ArrayList<ProductOrder> list) {
         products = list;
     }
 
@@ -37,9 +37,9 @@ public class BucketFragment extends Fragment {
     }
 
     public class BucketAdapter extends RecyclerView.Adapter<BucketAdapter.BucketViewHolder> {
-        ArrayList<Product> arrayList = new ArrayList<>();
+        ArrayList<ProductOrder> arrayList = new ArrayList<>();
 
-        public BucketAdapter(ArrayList<Product> products) {
+        public BucketAdapter(ArrayList<ProductOrder> products) {
             arrayList = products;
         }
 
@@ -57,7 +57,7 @@ public class BucketFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull BucketViewHolder holder, int position) {
             holder.textView.setText(arrayList.get(position).Name);
-            holder.imageView.setImageBitmap(arrayList.get(position).getImage());
+            holder.imageView.setImageBitmap(arrayList.get(position).getBitmapImage());
         }
 
         @Override
