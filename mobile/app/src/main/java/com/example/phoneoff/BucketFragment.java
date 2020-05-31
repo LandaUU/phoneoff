@@ -4,12 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,7 +49,8 @@ public class BucketFragment extends Fragment {
         @Override
         public BucketViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bucket_item, parent, false);
-            BucketViewHolder holder = new BucketViewHolder(view, (CheckBox) view.findViewById(R.id.OrderCheckBox), (TextView) view.findViewById(R.id.OrderTextView), (ImageView) view.findViewById(R.id.OrderPhoneImage), (Button) view.findViewById(R.id.OrderDeleteButton));
+            //BucketViewHolder holder = new BucketViewHolder(view, (CheckBox) view.findViewById(R.id.OrderCheckBox), (TextView) view.findViewById(R.id.OrderTextView), (ImageView) view.findViewById(R.id.OrderPhoneImage), (Button) view.findViewById(R.id.OrderDeleteButton));
+            BucketViewHolder holder = new BucketViewHolder(view, view.findViewById(R.id.OrderTextView), view.findViewById(R.id.imageViewOrder), view.findViewById(R.id.CardViewOrder));
             return holder;
         }
 
@@ -66,17 +66,22 @@ public class BucketFragment extends Fragment {
         }
 
         public class BucketViewHolder extends RecyclerView.ViewHolder {
-            public CheckBox checkBox;
             public TextView textView;
             public ImageView imageView;
-            public Button button;
-
-            public BucketViewHolder(@NonNull View itemView, CheckBox checkBox, TextView textView, ImageView imageView, Button button) {
+            public CardView cardView;
+            /*public BucketViewHolder(@NonNull View itemView, CheckBox checkBox, TextView textView, ImageView imageView, Button button) {
                 super(itemView);
                 this.checkBox = checkBox;
                 this.textView = textView;
                 this.imageView = imageView;
                 this.button = button;
+            }*/
+
+            public BucketViewHolder(@NonNull View itemView, TextView textView, ImageView imageView, CardView cardView) {
+                super(itemView);
+                this.textView = textView;
+                this.imageView = imageView;
+                this.cardView = cardView;
             }
         }
     }

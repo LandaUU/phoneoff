@@ -1,6 +1,5 @@
 package com.example.phoneoff;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.phoneoff.ui.login.LoginActivity;
 
 public class AccountFragment extends Fragment {
     Button loginButton;
@@ -22,13 +20,13 @@ public class AccountFragment extends Fragment {
         loginButton = view.findViewById(R.id.LoginButton);
         RegButton = view.findViewById(R.id.RegistrationButton);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        /*loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), LoginActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         return view;
     }

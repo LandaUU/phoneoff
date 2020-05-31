@@ -21,8 +21,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 public class DBManager {
 
@@ -30,6 +33,12 @@ public class DBManager {
     private interface API {
         @GET("/Phone/GetPhones")
         Call<String> getProducts();
+
+        @POST("/Phone/Authentication")
+        Call<Auth> Auth(@Body UserAuth user);
+
+        @POST("/Phone/GetOrder")
+        Call<ArrayList<Order>> GetOrder();
     }
 
     private static OkHttpClient.Builder getUnsafeOkHttpClient() {
@@ -114,5 +123,40 @@ public class DBManager {
                 t.printStackTrace();
             }
         });
+    }
+
+
+    public static Auth Auth(String Login, String Password) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("https://phoneoff.westeurope.cloudapp.azure.com")
+                .client(getUnsafeOkHttpClient().build())
+                .build();
+
+        API api = retrofit.create(API.class);
+
+        Call<Auth> call = api.Auth(new UserAuth(Login, Password));
+
+        final Auth[] result = {new Auth()};
+
+        call.enqueue(new Callback<Auth>() {
+            @Override
+            public void onResponse(Call<Auth> call, Response<Auth> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        result[0] = response.body();
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Auth> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+        return result[0];
     }
 }

@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ProductOrder> orderproducts = new ArrayList<>();
     public static AppDatabase db = null;
     DataFragment dataFragment;
+    boolean isAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,8 +108,13 @@ public class MainActivity extends AppCompatActivity {
     public void AccountClick(MenuItem item) {
         item.setChecked(true);
         Log.i(TAG, "Нажали на Account, создаем фрагмент AccountFragment");
-        AccountFragment fragment = new AccountFragment();
-        ChangeFragment(R.id.frameLayout, fragment);
+        if (isAuth) {
+            UserFragment fragment = new UserFragment();
+            ChangeFragment(R.id.frameLayout, fragment);
+        } else {
+            LoginFragment fragment = new LoginFragment();
+            ChangeFragment(R.id.frameLayout, fragment);
+        }
     }
 
     public void BucketClick(MenuItem item) {
