@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.util.ArrayList;
+
 public class LoginFragment extends Fragment {
 
     Button LoginButton;
@@ -29,21 +31,20 @@ public class LoginFragment extends Fragment {
         RegistrationButton = view.findViewById(R.id.ButtonRegistration);
         EmailText = view.findViewById(R.id.editTextTextEmailAddress);
         PassText = view.findViewById(R.id.editTextTextPassword);
-        MainActivity mainActivity = (MainActivity) getActivity();
 
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!EmailText.getText().equals("") && !PassText.getText().equals("")) {
-                    Auth result = DBManager.Auth(EmailText.getText().toString(), PassText.getText().toString());
-                    if (result != null) {
-                        mainActivity.isAuth = true;
-                        UserFragment fragment = new UserFragment();
-                        FragmentManager manager = getActivity().getSupportFragmentManager();
-                        FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                        fragmentTransaction.replace(R.id.frameLayout, fragment);
-                        fragmentTransaction.commit();
-                    }
+                    DBManager.Auth(EmailText.getText().toString(), PassText.getText().toString(), new LoginInterface() {
+                        @Override
+                        public void Login(Auth result) {
+                            if (result.access_token != null) {
+                                GetOrder(result);
+                            }
+                        }
+                    });
+
                 }
             }
         });
@@ -51,4 +52,21 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
+    private void GetOrder(Auth result) {
+        DBManager.GetOrder(result.access_token, new GetOrderInterface() {
+            @Override
+            public void GetOrder(ArrayList<Order> orders) {
+                MainActivity mainActivity = (MainActivity) getActivity();
+                mainActivity.isAuth = true;
+                mainActivity.user = result;
+                UserFragment fragment;
+                //fragment = new UserFragment(result);
+                fragment = new UserFragment(orders, result);
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                fragmentTransaction.replace(R.id.frameLayout, fragment);
+                fragmentTransaction.commit();
+            }
+        });
+    }
 }

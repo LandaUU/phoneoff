@@ -17,6 +17,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,8 +38,11 @@ public class DBManager {
         @POST("/Phone/Authentication")
         Call<Auth> Auth(@Body UserAuth user);
 
-        @POST("/Phone/GetOrder")
+        @GET("/Phone/GetOrder")
         Call<ArrayList<Order>> GetOrder();
+
+        @POST("/Phone/AddOrder")
+        Call<Integer> AddOrder(@Body AddOrder order);
     }
 
     private static OkHttpClient.Builder getUnsafeOkHttpClient() {
@@ -83,6 +87,60 @@ public class DBManager {
         }
     }
 
+    private static OkHttpClient.Builder getUnsafeOkHttpClientWithToken(String access_token) {
+
+        try {
+            // Create a trust manager that does not validate certificate chains
+            final TrustManager[] trustAllCerts = new TrustManager[]{
+                    new X509TrustManager() {
+                        @Override
+                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                        }
+
+                        @Override
+                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                        }
+
+                        @Override
+                        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                            return new java.security.cert.X509Certificate[]{};
+                        }
+                    }
+            };
+
+            // Install the all-trusting trust manager
+            final SSLContext sslContext = SSLContext.getInstance("SSL");
+            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+
+            // Create an ssl socket factory with our all-trusting manager
+            final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+
+            String Authoriz = "Bearer " + access_token;
+
+            OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                    .authenticator((route, response) -> {
+                        Request request = response.request();
+                        if (request.header("Authorization") != null)
+                            return null;
+                        return request.newBuilder()
+                                .header("Authorization", Authoriz)
+                                .build();
+                    });
+
+            builder.sslSocketFactory(sslSocketFactory, (X509TrustManager) trustAllCerts[0]);
+            builder.hostnameVerifier(new HostnameVerifier() {
+                @Override
+                public boolean verify(String hostname, SSLSession session) {
+                    return true;
+                }
+            });
+            return builder;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     public static void GetProducts(ArrayList<Product> products) {
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -125,8 +183,7 @@ public class DBManager {
         });
     }
 
-
-    public static Auth Auth(String Login, String Password) {
+    public static void Auth(String Login, String Password, LoginInterface callback) {
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl("https://phoneoff.westeurope.cloudapp.azure.com")
@@ -137,14 +194,15 @@ public class DBManager {
 
         Call<Auth> call = api.Auth(new UserAuth(Login, Password));
 
-        final Auth[] result = {new Auth()};
+        //final Auth[] result = {new Auth()};
 
         call.enqueue(new Callback<Auth>() {
             @Override
             public void onResponse(Call<Auth> call, Response<Auth> response) {
                 try {
                     if (response.isSuccessful()) {
-                        result[0] = response.body();
+                        callback.Login(response.body());
+                        //result[0] = response.body();
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -157,6 +215,69 @@ public class DBManager {
             }
         });
 
-        return result[0];
+        //return result[0];
     }
+
+    public static void GetOrder(String access_token, GetOrderInterface callback) {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("https://phoneoff.westeurope.cloudapp.azure.com")
+                .client(getUnsafeOkHttpClientWithToken(access_token).build())
+                .build();
+
+        API api = retrofit.create(API.class);
+
+        Call<ArrayList<Order>> call = api.GetOrder();
+
+
+        call.enqueue(new Callback<ArrayList<Order>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Order>> call, Response<ArrayList<Order>> response) {
+                if (response.isSuccessful()) {
+
+                    callback.GetOrder(response.body());
+                } else {
+                    Log.i("DBManager", String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Order>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+
+    }
+
+    public static void AddOrder(AddOrder order, AddOrderInterface callback) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("https://phoneoff.westeurope.cloudapp.azure.com")
+                .client(getUnsafeOkHttpClient().build())
+                .build();
+
+        API api = retrofit.create(API.class);
+
+        Call<Integer> call = api.AddOrder(order);
+
+
+        call.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                if (response.isSuccessful()) {
+                    //value[0] = response.body();
+                    callback.AddOrder(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+    }
+
 }

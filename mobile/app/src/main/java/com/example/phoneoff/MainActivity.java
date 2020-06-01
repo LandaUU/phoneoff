@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     public static AppDatabase db = null;
     DataFragment dataFragment;
     boolean isAuth;
+    Auth user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,8 +109,8 @@ public class MainActivity extends AppCompatActivity {
     public void AccountClick(MenuItem item) {
         item.setChecked(true);
         Log.i(TAG, "Нажали на Account, создаем фрагмент AccountFragment");
-        if (isAuth) {
-            UserFragment fragment = new UserFragment();
+        if (isAuth && user != null) {
+            UserFragment fragment = new UserFragment(user);
             ChangeFragment(R.id.frameLayout, fragment);
         } else {
             LoginFragment fragment = new LoginFragment();

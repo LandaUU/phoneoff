@@ -37,6 +37,7 @@ public class ProductFragment extends Fragment {
 
         //recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 4));
+
         adapter = new ProductAdapter(arrayList);
 
         recyclerView.setAdapter(adapter);

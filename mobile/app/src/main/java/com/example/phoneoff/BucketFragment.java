@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -14,11 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class BucketFragment extends Fragment {
     RecyclerView recyclerView;
     BucketAdapter adapter;
     private ArrayList<ProductOrder> products = new ArrayList<>();
+    Button OrderButton;
 
     public BucketFragment(ArrayList<ProductOrder> list) {
         products = list;
@@ -29,9 +33,37 @@ public class BucketFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bucket, container, false);
         recyclerView = view.findViewById(R.id.OrdersRecycleView);
+        OrderButton = view.findViewById(R.id.OrderButton);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         adapter = new BucketAdapter(products);
         recyclerView.setAdapter(adapter);
+
+        OrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int[] ids = new int[products.size()];
+                double Summa = 0;
+                for (int i = 0; i < products.size(); i++) {
+                    ids[i] = products.get(i).Id;
+                    Summa += products.get(i).Cost;
+                }
+                MainActivity activity = (MainActivity) getActivity();
+                if (activity.isAuth) {
+                    AddOrder order = new AddOrder(ids, activity.user.username, new Date().toString(), Summa);
+                    DBManager.AddOrder(order, new AddOrderInterface() {
+                        @Override
+                        public void AddOrder(int orderId) {
+                            Toast.makeText(getContext(), "Заказ №" + orderId + " оформлен", Toast.LENGTH_LONG).show();
+                            products.clear();
+                        }
+                    });
+                } else {
+                    Toast.makeText(getContext(), "Авторизуйтесь", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
         return view;
     }
 

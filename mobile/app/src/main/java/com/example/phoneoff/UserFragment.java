@@ -8,33 +8,63 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 public class UserFragment extends Fragment {
 
     RecyclerView recyclerView;
     TextView UserTextView;
-    String Email;
+    Auth user;
+    OrderAdapter adapter;
+    ArrayList<Order> orders;
 
-    public UserFragment(String username) {
-        Email = username;
+    public UserFragment(Auth us) {
+        user = us;
+        GetOrder();
+    }
+
+    public UserFragment(ArrayList<Order> orderArrayList, Auth auth) {
+        orders = orderArrayList;
+        adapter = new OrderAdapter(orders);
+        user = auth;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_user, container, false);
         UserTextView = view.findViewById(R.id.textViewOrder1);
-
+        recyclerView = view.findViewById(R.id.recyclerViewOrder);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setAdapter(adapter);
         CharSequence sequence = UserTextView.getText();
-        UserTextView.setText(sequence + Email);
-
+        UserTextView.setText(sequence + user.username);
         return view;
+    }
+
+    private void GetOrder() {
+        DBManager.GetOrder(user.access_token, new GetOrderInterface() {
+            @Override
+            public void GetOrder(ArrayList<Order> orders) {
+                adapter = new OrderAdapter(orders);
+                recyclerView.setAdapter(adapter);
+            }
+        });
     }
 
 
     public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderHolder> {
+        ArrayList<Order> orderArrayList;
+
+        public OrderAdapter(ArrayList<Order> orderArrayList) {
+            this.orderArrayList = orderArrayList;
+        }
+
+        public OrderAdapter() {
+        }
 
         @NonNull
         @Override
@@ -48,9 +78,14 @@ public class UserFragment extends Fragment {
         public void onBindViewHolder(@NonNull OrderHolder holder, int position) {
             String text1 = "Заказ №";
             String text2 = "Статус:";
-            holder.textView1.setText(text1);
-            holder.textView2.setText(text2);
-
+            try {
+                if (!orderArrayList.isEmpty()) {
+                    holder.textView1.setText(text1 + orderArrayList.get(position).Id);
+                    holder.textView2.setText(text2 + orderArrayList.get(position).Status);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
 
         @Override
