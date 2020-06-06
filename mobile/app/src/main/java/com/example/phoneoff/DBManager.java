@@ -43,6 +43,9 @@ public class DBManager {
 
         @POST("/Phone/AddOrder")
         Call<Integer> AddOrder(@Body AddOrder order);
+
+        @POST("/Phone/Registration")
+        Call<String> Registration(@Body RegistrationUser user);
     }
 
     private static OkHttpClient.Builder getUnsafeOkHttpClient() {
@@ -278,6 +281,37 @@ public class DBManager {
             }
         });
 
+    }
+
+
+    public static boolean Registration(RegistrationUser user) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("https://phoneoff.westeurope.cloudapp.azure.com")
+                .client(getUnsafeOkHttpClient().build())
+                .build();
+
+        API api = retrofit.create(API.class);
+        final boolean[] result = new boolean[1];
+        Call<String> call = api.Registration(user);
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful()) {
+                    result[0] = true;
+                } else {
+                    result[0] = false;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                t.printStackTrace();
+                result[0] = false;
+            }
+        });
+        return result[0];
     }
 
 }

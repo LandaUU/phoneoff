@@ -178,6 +178,8 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
+        if (resultCode == 3) {
+            Toast.makeText(getApplicationContext(), "Successful Registration", Toast.LENGTH_SHORT).show();
+        }
     }
 }
