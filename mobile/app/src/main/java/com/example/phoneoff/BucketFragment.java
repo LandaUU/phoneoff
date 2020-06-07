@@ -49,7 +49,7 @@ public class BucketFragment extends Fragment {
                 }
                 MainActivity activity = (MainActivity) getActivity();
                 if (activity.isAuth) {
-                    AddOrder order = new AddOrder(ids, activity.user.username, new Date().toString(), Summa);
+                    AddOrder order = new AddOrder(ids, activity.user.username, new Date(), Summa);
                     DBManager.AddOrder(order, new AddOrderInterface() {
                         @Override
                         public void AddOrder(int orderId) {

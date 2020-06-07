@@ -3,6 +3,7 @@ package com.example.phoneoff;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 
@@ -284,34 +285,32 @@ public class DBManager {
     }
 
 
-    public static boolean Registration(RegistrationUser user) {
+    public static void Registration(RegistrationUser user, RegistrationInterface callback) {
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
         Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .baseUrl("https://phoneoff.westeurope.cloudapp.azure.com")
                 .client(getUnsafeOkHttpClient().build())
                 .build();
 
         API api = retrofit.create(API.class);
-        final boolean[] result = new boolean[1];
         Call<String> call = api.Registration(user);
 
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                if (response.isSuccessful()) {
-                    result[0] = true;
-                } else {
-                    result[0] = false;
-                }
+                callback.Registration(response.isSuccessful());
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 t.printStackTrace();
-                result[0] = false;
             }
         });
-        return result[0];
     }
 
 }

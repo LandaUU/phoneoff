@@ -1,13 +1,15 @@
 package com.example.phoneoff;
 
+import java.util.Date;
+
 public class AddOrder {
 
     public int[] prodId;
     public String email;
-    public String date;
+    public Date date;
     public double price;
 
-    public AddOrder(int[] prodId, String email, String date, double price) {
+    public AddOrder(int[] prodId, String email, Date date, double price) {
         this.prodId = prodId;
         this.email = email;
         this.date = date;

@@ -47,7 +47,22 @@ public class RegistrationActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (!DBManager.Registration(new RegistrationUser(EmailText.getText().toString(), LoginText.getText().toString(),
+                DBManager.Registration(new RegistrationUser(EmailText.getText().toString(), LoginText.getText().toString(),
+                        PassText.getText().toString(), FIOText.getText().toString(), AddressText.getText().toString(),
+                        PhoneText.getText().toString()), new RegistrationInterface() {
+                    @Override
+                    public void Registration(boolean result) {
+                        if (result) {
+                            Toast.makeText(getApplicationContext(), "Вы успешно зарегистрировались", Toast.LENGTH_LONG).show();
+                            setResult(3);
+                            finish();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Не удалось зарегистрироваться", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+                /*if (!DBManager.Registration(new RegistrationUser(EmailText.getText().toString(), LoginText.getText().toString(),
                         PassText.getText().toString(), FIOText.getText().toString(), AddressText.getText().toString(),
                         PhoneText.getText().toString()))) {
                     Toast.makeText(getApplicationContext(), "Не удалось зарегистрироваться", Toast.LENGTH_LONG).show();
@@ -55,7 +70,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     setResult(3);
                     Toast.makeText(getApplicationContext(), "Вы успешно зарегистрировались", Toast.LENGTH_LONG).show();
                     finish();
-                }
+                }*/
             }
         });
     }
