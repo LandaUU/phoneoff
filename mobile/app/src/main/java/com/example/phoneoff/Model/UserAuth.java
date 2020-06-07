@@ -1,4 +1,4 @@
-package com.example.phoneoff;
+package com.example.phoneoff.Model;
 
 public class UserAuth {
 

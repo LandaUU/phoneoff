@@ -1,4 +1,4 @@
-package com.example.phoneoff;
+package com.example.phoneoff.Activity;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -7,6 +7,11 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.phoneoff.DBManager;
+import com.example.phoneoff.Interface.RegistrationInterface;
+import com.example.phoneoff.Model.RegistrationUser;
+import com.example.phoneoff.R;
 
 public class RegistrationActivity extends AppCompatActivity {
     EditText EmailText;

@@ -1,4 +1,6 @@
-package com.example.phoneoff;
+package com.example.phoneoff.Interface;
+
+import com.example.phoneoff.Model.Order;
 
 import java.util.ArrayList;
 

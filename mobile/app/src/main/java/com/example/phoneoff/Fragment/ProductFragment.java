@@ -1,4 +1,4 @@
-package com.example.phoneoff;
+package com.example.phoneoff.Fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,6 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.phoneoff.Activity.ProductActivity;
+import com.example.phoneoff.Model.Product;
+import com.example.phoneoff.R;
 
 import java.util.ArrayList;
 

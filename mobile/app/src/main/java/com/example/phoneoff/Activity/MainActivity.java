@@ -1,4 +1,4 @@
-package com.example.phoneoff;
+package com.example.phoneoff.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,20 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 
+import com.example.phoneoff.AppDatabase;
+import com.example.phoneoff.DBManager;
+import com.example.phoneoff.Fragment.BucketFragment;
+import com.example.phoneoff.Fragment.DataFragment;
+import com.example.phoneoff.Fragment.HomeFragment;
+import com.example.phoneoff.Fragment.LoginFragment;
+import com.example.phoneoff.Fragment.ProductFragment;
+import com.example.phoneoff.Fragment.UserFragment;
+import com.example.phoneoff.Interface.GetProductsInterface;
+import com.example.phoneoff.Model.Auth;
+import com.example.phoneoff.Model.Product;
+import com.example.phoneoff.Model.ProductOrder;
+import com.example.phoneoff.R;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -29,15 +43,15 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ProductOrder> orderproducts = new ArrayList<>();
     public static AppDatabase db = null;
     DataFragment dataFragment;
-    boolean isAuth;
-    Auth user;
+    public boolean isAuth;
+    public Auth user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "Создание MainActivity");
         setContentView(R.layout.activity_main);
-        DBManager.GetProducts(products);
+        //DBManager.GetProducts(products);
 
         db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "MyDatabase").build();
@@ -94,8 +108,15 @@ public class MainActivity extends AppCompatActivity {
         item.setChecked(true);
         Log.i(TAG, "Нажали на Product, создаем фрагмент ProductFragment");
         Executors.newSingleThreadExecutor().execute(() -> db.productDao().insertAllProducts(products));
-        ProductFragment fragment = new ProductFragment(products);
-        ChangeFragment(R.id.frameLayout, fragment);
+
+        DBManager.GetProducts(new GetProductsInterface() {
+            @Override
+            public void GetProducts(ArrayList<Product> _products) {
+                products = _products;
+                ProductFragment fragment = new ProductFragment(products);
+                ChangeFragment(R.id.frameLayout, fragment);
+            }
+        });
     }
 
     private void ChangeFragment(int id,Fragment fragment){

@@ -1,4 +1,4 @@
-package com.example.phoneoff;
+package com.example.phoneoff.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.phoneoff.DBManager;
+import com.example.phoneoff.Interface.GetOrderInterface;
+import com.example.phoneoff.Model.Auth;
+import com.example.phoneoff.Model.Order;
+import com.example.phoneoff.R;
 
 import java.util.ArrayList;
 
@@ -28,8 +34,8 @@ public class UserFragment extends Fragment {
 
     public UserFragment(ArrayList<Order> orderArrayList, Auth auth) {
         orders = orderArrayList;
-        adapter = new OrderAdapter(orders);
         user = auth;
+        adapter = new OrderAdapter(orders);
     }
 
     @Override
@@ -39,6 +45,7 @@ public class UserFragment extends Fragment {
         UserTextView = view.findViewById(R.id.textViewOrder1);
         recyclerView = view.findViewById(R.id.recyclerViewOrder);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        //adapter = new OrderAdapter(orders);
         recyclerView.setAdapter(adapter);
         CharSequence sequence = UserTextView.getText();
         UserTextView.setText(sequence + user.username);
@@ -70,18 +77,20 @@ public class UserFragment extends Fragment {
         @Override
         public OrderHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_item, parent, false);
-            OrderHolder holder = new OrderHolder(view);
-            return holder;
+
+            return new OrderHolder(view);
         }
 
         @Override
         public void onBindViewHolder(@NonNull OrderHolder holder, int position) {
             String text1 = "Заказ №";
             String text2 = "Статус:";
+            String text3 = "Сумма:";
             try {
                 if (!orderArrayList.isEmpty()) {
-                    holder.textView1.setText(text1 + orderArrayList.get(position).Id);
-                    holder.textView2.setText(text2 + orderArrayList.get(position).Status);
+                    holder.textView1.setText(text1 + orderArrayList.get(position).idOrder);
+                    holder.textView2.setText(text2 + orderArrayList.get(position).status);
+                    holder.textView3.setText(text3 + orderArrayList.get(position).summa);
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -90,24 +99,19 @@ public class UserFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return 0;
+            return orderArrayList.size();
         }
 
         public class OrderHolder extends RecyclerView.ViewHolder {
             public TextView textView1;
             public TextView textView2;
-
-
-            public OrderHolder(@NonNull View itemView, TextView textView1, TextView textView2) {
-                super(itemView);
-                this.textView1 = textView1;
-                this.textView2 = textView2;
-            }
+            public TextView textView3;
 
             public OrderHolder(View view) {
                 super(view);
-                this.textView1 = view.findViewById(R.id.textViewOrder1);
-                this.textView2 = view.findViewById(R.id.textViewOrder2);
+                this.textView1 = view.findViewById(R.id.textView15);
+                this.textView2 = view.findViewById(R.id.textView16);
+                this.textView3 = view.findViewById(R.id.textView23);
             }
         }
     }

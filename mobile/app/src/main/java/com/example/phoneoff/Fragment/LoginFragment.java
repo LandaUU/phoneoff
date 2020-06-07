@@ -1,4 +1,4 @@
-package com.example.phoneoff;
+package com.example.phoneoff.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.phoneoff.Activity.MainActivity;
+import com.example.phoneoff.Activity.RegistrationActivity;
+import com.example.phoneoff.DBManager;
+import com.example.phoneoff.Interface.GetOrderInterface;
+import com.example.phoneoff.Interface.LoginInterface;
+import com.example.phoneoff.Model.Auth;
+import com.example.phoneoff.Model.Order;
+import com.example.phoneoff.R;
 
 import java.util.ArrayList;
 

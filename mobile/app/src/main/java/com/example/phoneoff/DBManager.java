@@ -2,10 +2,19 @@ package com.example.phoneoff;
 
 import android.util.Log;
 
+import com.example.phoneoff.Interface.AddOrderInterface;
+import com.example.phoneoff.Interface.GetOrderInterface;
+import com.example.phoneoff.Interface.GetProductsInterface;
+import com.example.phoneoff.Interface.LoginInterface;
+import com.example.phoneoff.Interface.RegistrationInterface;
+import com.example.phoneoff.Model.AddOrder;
+import com.example.phoneoff.Model.Auth;
+import com.example.phoneoff.Model.Order;
+import com.example.phoneoff.Model.Product;
+import com.example.phoneoff.Model.RegistrationUser;
+import com.example.phoneoff.Model.UserAuth;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import org.json.JSONArray;
 
 import java.security.cert.CertificateException;
 import java.util.ArrayList;
@@ -34,7 +43,7 @@ public class DBManager {
 
     private interface API {
         @GET("/Phone/GetPhones")
-        Call<String> getProducts();
+        Call<ArrayList<Product>> getProducts();
 
         @POST("/Phone/Authentication")
         Call<Auth> Auth(@Body UserAuth user);
@@ -145,25 +154,27 @@ public class DBManager {
     }
 
 
-    public static void GetProducts(ArrayList<Product> products) {
+    public static void GetProducts(GetProductsInterface callback) {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl("https://phoneoff.westeurope.cloudapp.azure.com")
                 .client(getUnsafeOkHttpClient().build())
                 .build();
 
         API api = retrofit.create(API.class);
 
-        Call<String> call = api.getProducts();
+        Call<ArrayList<Product>> call = api.getProducts();
 
-        call.enqueue(new Callback<String>() {
+        call.enqueue(new Callback<ArrayList<Product>>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<ArrayList<Product>> call, Response<ArrayList<Product>> response) {
                 try {
                     if (response.isSuccessful()) {
 
-                        JSONArray array = new JSONArray(response.body());
+                        callback.GetProducts(response.body());
+                        /*JSONArray array = new JSONArray(response.body());
                         Gson gs = new Gson();
 
                         for (int i = 0; i < array.length(); i++) {
@@ -171,7 +182,7 @@ public class DBManager {
                             Product product = gs.fromJson(prodString, Product.class);
                             products.add(product);
                         }
-                        Log.i("DBManager", "ArrayList заполнен!");
+                        Log.i("DBManager", "ArrayList заполнен!");*/
                     } else {
                         throw new Exception("response.isSuccesful is false");
                     }
@@ -181,7 +192,7 @@ public class DBManager {
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<ArrayList<Product>> call, Throwable t) {
                 t.printStackTrace();
             }
         });

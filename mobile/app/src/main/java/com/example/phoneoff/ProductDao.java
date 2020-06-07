@@ -7,6 +7,9 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import com.example.phoneoff.Model.Product;
+import com.example.phoneoff.Model.ProductOrder;
+
 import java.util.List;
 
 @Dao

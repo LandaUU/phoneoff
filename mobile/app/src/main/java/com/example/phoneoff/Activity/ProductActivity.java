@@ -1,4 +1,4 @@
-package com.example.phoneoff;
+package com.example.phoneoff.Activity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,6 +12,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.phoneoff.AppDatabase;
+import com.example.phoneoff.Fragment.CharacteristicFragment;
+import com.example.phoneoff.Fragment.DescriptionFragment;
+import com.example.phoneoff.Model.Product;
+import com.example.phoneoff.R;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.concurrent.ExecutorService;
@@ -79,6 +84,7 @@ public class ProductActivity extends AppCompatActivity {
 
         OrderButton = findViewById(R.id.AddOrderButton);
         OrderButton.setOnClickListener(v -> {
+
             Toast.makeText(getApplicationContext(), "Добавлено в корзину", Toast.LENGTH_LONG).show();
             OrderButton.setBackgroundColor(Color.GREEN);
             OrderButton.setText("Добавлено");

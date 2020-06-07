@@ -1,4 +1,4 @@
-package com.example.phoneoff;
+package com.example.phoneoff.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +14,13 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.phoneoff.Activity.MainActivity;
+import com.example.phoneoff.DBManager;
+import com.example.phoneoff.Interface.AddOrderInterface;
+import com.example.phoneoff.Model.AddOrder;
+import com.example.phoneoff.Model.ProductOrder;
+import com.example.phoneoff.R;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,14 +48,14 @@ public class BucketFragment extends Fragment {
         OrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int[] ids = new int[products.size()];
-                double Summa = 0;
-                for (int i = 0; i < products.size(); i++) {
-                    ids[i] = products.get(i).Id;
-                    Summa += products.get(i).Cost;
-                }
                 MainActivity activity = (MainActivity) getActivity();
                 if (activity.isAuth) {
+                    int[] ids = new int[products.size()];
+                    double Summa = 0;
+                    for (int i = 0; i < products.size(); i++) {
+                        ids[i] = products.get(i).Id;
+                        Summa += products.get(i).Cost;
+                    }
                     AddOrder order = new AddOrder(ids, activity.user.username, new Date(), Summa);
                     DBManager.AddOrder(order, new AddOrderInterface() {
                         @Override

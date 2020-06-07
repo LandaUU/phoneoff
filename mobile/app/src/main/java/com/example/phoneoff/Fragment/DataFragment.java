@@ -1,8 +1,10 @@
-package com.example.phoneoff;
+package com.example.phoneoff.Fragment;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+
+import com.example.phoneoff.Model.Product;
 
 import java.util.ArrayList;
 

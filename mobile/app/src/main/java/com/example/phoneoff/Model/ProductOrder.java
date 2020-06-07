@@ -1,4 +1,4 @@
-package com.example.phoneoff;
+package com.example.phoneoff.Model;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,8 +7,8 @@ import android.util.Base64;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "Product")
-public class Product {
+@Entity(tableName = "ProductOrder")
+public class ProductOrder {
     @PrimaryKey
     public int Id;
     public String Name;
@@ -21,89 +21,94 @@ public class Product {
     public double Diagonal;
     public String Image;
 
-    public Product() {
+    public ProductOrder() {
 
     }
 
-    public Product(int id, String name, double cost, String description, String color, String manufacturer, int RAM, int ROM, double diagonal, String image) {
-        Id = id;
-        Name = name;
-        Cost = cost;
-        Description = description;
-        Color = color;
-        Manufacturer = manufacturer;
-        this.RAM = RAM;
-        this.ROM = ROM;
-        Diagonal = diagonal;
-        this.Image = image;
+    public ProductOrder(Product product) {
+        Id = product.Id;
+        Name = product.Name;
+        Cost = product.Cost;
+        Description = product.Description;
+        Color = product.Color;
+        Manufacturer = product.Manufacturer;
+        RAM = product.RAM;
+        ROM = product.ROM;
+        Diagonal = product.Diagonal;
+        Image = product.Image;
     }
 
     public int getId() {
         return Id;
     }
 
-    public void setId(int id) {
-        Id = id;
-    }
-
     public String getName() {
         return Name;
-    }
-
-    public void setName(String name) {
-        Name = name;
     }
 
     public double getCost() {
         return Cost;
     }
 
-    public void setCost(double cost) {
-        Cost = cost;
-    }
-
     public String getDescription() {
         return Description;
-    }
-
-    public void setDescription(String description) {
-        Description = description;
     }
 
     public String getColor() {
         return Color;
     }
 
-    public void setColor(String color) {
-        Color = color;
-    }
-
     public String getManufacturer() {
         return Manufacturer;
-    }
-
-    public void setManufacturer(String manufacturer) {
-        Manufacturer = manufacturer;
     }
 
     public int getRAM() {
         return RAM;
     }
 
-    public void setRAM(int RAM) {
-        this.RAM = RAM;
-    }
-
     public int getROM() {
         return ROM;
     }
 
-    public void setROM(int ROM) {
-        this.ROM = ROM;
-    }
-
     public double getDiagonal() {
         return Diagonal;
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public void setCost(double cost) {
+        Cost = cost;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
+    }
+
+    public void setColor(String color) {
+        Color = color;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        Manufacturer = manufacturer;
+    }
+
+    public void setRAM(int RAM) {
+        this.RAM = RAM;
+    }
+
+    public void setROM(int ROM) {
+        this.ROM = ROM;
     }
 
     public void setDiagonal(double diagonal) {
@@ -114,10 +119,9 @@ public class Product {
         Image = image;
     }
 
-    public Bitmap getImage() {
+    public Bitmap getBitmapImage() {
         return StringToBitMap(Image);
     }
-
 
     private Bitmap StringToBitMap(String encodedString) {
         try {
@@ -129,5 +133,4 @@ public class Product {
             return null;
         }
     }
-
 }
