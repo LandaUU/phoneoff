@@ -83,6 +83,13 @@ public class ProductActivity extends AppCompatActivity {
         });
 
         OrderButton = findViewById(R.id.AddOrderButton);
+
+        if (product.Count <= 0) {
+            OrderButton.setClickable(false);
+            OrderButton.setBackgroundColor(Color.RED);
+            OrderButton.setText("Нет в наличии");
+        }
+
         OrderButton.setOnClickListener(v -> {
 
             Toast.makeText(getApplicationContext(), "Добавлено в корзину", Toast.LENGTH_LONG).show();

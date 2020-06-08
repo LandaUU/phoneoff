@@ -4,13 +4,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.phoneoff.Activity.MainActivity;
 import com.example.phoneoff.DBManager;
 import com.example.phoneoff.Interface.GetOrderInterface;
 import com.example.phoneoff.Model.Auth;
@@ -26,6 +30,7 @@ public class UserFragment extends Fragment {
     Auth user;
     OrderAdapter adapter;
     ArrayList<Order> orders;
+    Button UnloginButton;
 
     public UserFragment(Auth us) {
         user = us;
@@ -43,12 +48,29 @@ public class UserFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, container, false);
         UserTextView = view.findViewById(R.id.textViewOrder1);
+        UnloginButton = view.findViewById(R.id.UnloginButton);
         recyclerView = view.findViewById(R.id.recyclerViewOrder);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         //adapter = new OrderAdapter(orders);
         recyclerView.setAdapter(adapter);
         CharSequence sequence = UserTextView.getText();
         UserTextView.setText(sequence + user.username);
+
+        UnloginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity mainActivity = (MainActivity) getActivity();
+                mainActivity.isAuth = false;
+                mainActivity.user = null;
+                LoginFragment fragment = new LoginFragment();
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                fragmentTransaction.replace(R.id.frameLayout, fragment);
+                fragmentTransaction.commit();
+            }
+        });
+
+
         return view;
     }
 
